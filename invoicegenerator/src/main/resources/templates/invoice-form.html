@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Invoice</title>
+  <style>
+        body {
+            background-color: #e8f5e9;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .row > div {
+            flex: 1;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #81c784;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #66bb6a;
+        }
+    </style>
+</head>
+<body>
+<h1>🧾 Create Invoice</h1>
+
+<form th:action="@{/invoices/save}" th:object="${invoice}" method="post">
+  <input type="hidden" th:field="*{contactId}" />
+
+  <label>Client Name</label>
+  <input type="text" th:value="${contact.firstName + ' ' + contact.lastName}" readonly />
+
+  <label>Client Email</label>
+  <input type="email" th:value="${contact.email}" readonly />
+
+  <label>Client Address</label>
+  <input type="text" th:value="${contact.address}" readonly />
+
+  <label>Invoice Number</label>
+  <input type="text" th:field="*{invoiceNumber}" required />
+
+  <label>Invoice Date</label>
+  <input type="date" th:field="*{invoiceDate}" required />
+
+  <label>Description</label>
+  <input type="text" th:field="*{description}" required />
+
+  <div class="row">
+    <div>
+      <label>Units</label>
+      <input type="number" th:field="*{units}" required />
+    </div>
+    <div>
+      <label>Rate</label>
+      <input type="number" step="0.01" th:field="*{rate}" required />
+    </div>
+  </div>
+
+  <label>Subtotal</label>
+  <input type="number" step="0.01" th:field="*{subtotal}" readonly />
+
+  <label>
+    <input type="checkbox" th:field="*{outsideEU}" />
+    Outside EU (No VAT)
+  </label>
+
+  <label>VAT (21%)</label>
+  <input type="number" step="0.01" th:field="*{vat}" readonly />
+
+  <label>Total</label>
+  <input type="number" step="0.01" th:field="*{total}" readonly />
+
+  <label>Payment Instructions</label>
+  <textarea th:field="*{paymentInstructions}" rows="3">Transfer to NL30INGB0104244798</textarea>
+
+  <label>Note</label>
+  <textarea th:field="*{note}" rows="2">Thank you very much for your trust in me!</textarea>
+
+  <button type="submit">💾 Save Invoice</button>
+</form>
+</body>
+</html>

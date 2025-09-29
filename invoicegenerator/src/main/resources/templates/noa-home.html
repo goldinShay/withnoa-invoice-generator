@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Noa's Dashboard</title>
+  <style>
+        body {
+            background-color: #d4f7dc;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #2e7d32;
+        }
+        .button {
+            display: block;
+            margin: 15px auto;
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #81c784;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 250px;
+        }
+        .button:hover {
+            background-color: #66bb6a;
+        }
+        .datetime {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4e4e4e;
+        }
+    </style>
+</head>
+<body>
+<h1>Hi Noa, Welcome to your Invoice Manager.</h1>
+<p>What would you like to do now please?</p>
+<div class="datetime" th:text="${dateTime}"></div>
+
+<button class="button" onclick="location.href='/invoices/new'">Create a New Invoice</button>
+<button class="button" onclick="location.href='/contacts'">Contact List</button>
+<button class="button" onclick="location.href='/invoices/history'">Invoice History</button>
+<button class="button" onclick="location.href='/statistics'">Statistics</button>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Contact Form</title>
+  <style>
+        body {
+            background-color: #d4f7dc;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #81c784;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #66bb6a;
+        }
+    </style>
+</head>
+<body>
+<h1 th:if="${contact.id == null}">➕ Add New Contact</h1>
+<h1 th:if="${contact.id != null}">✏️ Edit Contact</h1>
+
+<form th:action="@{/contacts/save}" th:object="${contact}" method="post">
+  <input type="hidden" th:field="*{id}" />
+
+  <label>First Name</label>
+  <input type="text" th:field="*{firstName}" required />
+
+  <label>Middle Name</label>
+  <input type="text" th:field="*{middleName}" />
+
+  <label>Last Name</label>
+  <input type="text" th:field="*{lastName}" required />
+
+  <label>Email</label>
+  <input type="email" th:field="*{email}" required />
+
+  <label>Phone Number</label>
+  <input type="text" th:field="*{phoneNumber}" />
+
+  <label>Address</label>
+  <input type="text" th:field="*{address}" />
+
+  <label>Company Name</label>
+  <input type="text" th:field="*{companyName}" />
+
+  <label>Contact Type</label>
+  <select th:field="*{contactType}">
+    <option th:each="type : ${T(com.withNoa.entity.enums.ContactType).values()}"
+            th:value="${type}" th:text="${type}"></option>
+  </select>
+
+  <label>Preferred Language</label>
+  <select th:field="*{preferredLanguage}">
+    <option th:each="lang : ${T(com.withNoa.entity.enums.Language).values()}"
+            th:value="${lang}" th:text="${lang}"></option>
+  </select>
+
+  <label>Notes</label>
+  <textarea th:field="*{notes}" rows="4"></textarea>
+
+  <button type="submit">💾 Save Contact</button>
+</form>
+</body>
+</html>

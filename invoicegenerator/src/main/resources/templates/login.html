@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login</title>
+  <style>
+        body {
+            background-color: #d4f7dc;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            width: 300px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 320px;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #81c784;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #66bb6a;
+        }
+    </style>
+</head>
+<body>
+<h2>🔐 Log in to Noa's Invoice Manager</h2>
+<form th:action="@{/login}" method="post">
+  <div style="margin-bottom: 20px;">
+    <a href="/oauth2/authorization/google" class="btn btn-success">Login with Google</a>
+  </div>
+
+  <hr style="margin: 20px 0;" />
+
+  <input type="text" name="username" placeholder="Username" required /><br/>
+  <input type="password" name="password" placeholder="Password" required /><br/>
+  <button type="submit">Login</button>
+</form>
+
+</body>
+</html>

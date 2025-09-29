@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Noa's Contact List</title>
+  <style>
+        body {
+            background-color: #d4f7dc;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #81c784;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        tr.selected {
+            background-color: #c8e6c9 !important;
+        }
+
+        .top-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a, .top-bar button {
+            background-color: #81c784;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .top-bar a:hover, .top-bar button:hover {
+            background-color: #66bb6a;
+        }
+
+        .top-bar button:disabled {
+            background-color: #c8c8c8;
+            cursor: not-allowed;
+        }
+    </style>
+  <script>
+        let selectedContactId = null;
+
+        function selectRow(row, contactId) {
+            // Remove selection from all rows
+            document.querySelectorAll("tr").forEach(r => r.classList.remove("selected"));
+            // Highlight selected row
+            row.classList.add("selected");
+            selectedContactId = contactId;
+
+            // Enable buttons
+            document.getElementById("editBtn").disabled = false;
+            document.getElementById("deleteBtn").disabled = false;
+            document.getElementById("invoiceBtn").disabled = false;
+        }
+
+        function redirectToInvoice(contactId) {
+            window.location.href = '/invoices/new?contactId=' + contactId;
+        }
+
+        function editContact() {
+            if (selectedContactId) {
+                window.location.href = '/contacts/edit/' + selectedContactId;
+            }
+        }
+
+        function deleteContact() {
+            if (selectedContactId && confirm("Are you sure you want to delete this contact?")) {
+                window.location.href = '/contacts/delete/' + selectedContactId;
+            }
+        }
+            function filterContacts() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+    function createInvoice() {
+    if (selectedContactId) {
+        window.location.href = '/invoices/new?contactId=' + selectedContactId;
+    }
+}
+    </script>
+</head>
+<body>
+<h1>📇 Noa's Contact List</h1>
+
+<div class="top-bar">
+  <div>
+    <a href="/contacts/new">➕ Add New Contact</a>
+    <a href="/contacts/export" class="btn btn-success">Export to Excel</a>
+  </div>
+  <div style="flex-grow: 1; margin-right: 20px;">
+    <input type="text" id="searchInput" placeholder="🔍 Search contacts..." onkeyup="filterContacts()"
+           style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px;" />
+  </div>
+  <div>
+    <button id="editBtn" onclick="editContact()" disabled>✏️ Edit Selected</button>
+    <button id="deleteBtn" onclick="deleteContact()" disabled>🗑️ Delete Selected</button>
+    <button id="invoiceBtn" onclick="createInvoice()" disabled>🧾 Create Invoice</button>
+  </div>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>First Name</th>
+    <th>Middle Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Company</th>
+    <th>Type</th>
+    <th>Language</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="contact : ${contacts}"
+      th:ondblclick="|redirectToInvoice(${contact.id})|"
+      th:onclick="|selectRow(this, ${contact.id})|">
+    <td th:text="${contact.firstName}">First</td>
+    <td th:text="${contact.middleName}">Middle</td>
+    <td th:text="${contact.lastName}">Last</td>
+    <td th:text="${contact.email}">Email</td>
+    <td th:text="${contact.phoneNumber}">Phone</td>
+    <td th:text="${contact.companyName}">Company</td>
+    <td th:text="${contact.contactType}">Type</td>
+    <td th:text="${contact.preferredLanguage}">Language</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
