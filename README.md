@@ -32,8 +32,6 @@ This is my first personal Spring Boot project—and it reflects months of learni
 
 This project was built with care, clarity, and control. Every feature was tested, every credential encrypted, and every redirect validated. From OAuth handshakes to invoice headers, it’s a well-orchestrated classic.
 
-I couldn’t have done it without [Copilot](https://copilot.microsoft.com)—my AI companion who guided me through every storm, every silent error, and every breakthrough.
-
 ---
 
 ## 🚀 Getting Started
@@ -51,6 +49,13 @@ I couldn’t have done it without [Copilot](https://copilot.microsoft.com)—my 
 ---
 
 ## 💚 Author
+
+---
+
+License & Commercial Use
+This project is licensed under the Apache License 2.0. That means developers are free to use, modify, and distribute it—with proper credit.
+
+Want to use this tool but don't code? I offer commercial versions and support for non-technical users. Reach out via goldinshay@gmail.com
 
 **Shay Goldin**  
 Self-taught backend developer, building secure applications that protect personal archives and legacies.
